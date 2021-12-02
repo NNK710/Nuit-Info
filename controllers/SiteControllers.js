@@ -19,7 +19,7 @@ module.exports = {
                         res.render("./listeSauveteur", {index : lignes});
                 });
         }, AfficherAjoutSauveteur: (req,res)=>{
-                res.render('/AjouterSauveteur')
+                res.render('./AjouterSauveteur')
         },
         
         //Ajouter sauveuteur dans la table
@@ -30,7 +30,7 @@ module.exports = {
                 let date_naissance = req.body.date_naissance
                 let date_mort = req.body.date_mort
                 let métier = req.body.métier
-                siteModel.InsererClient(nom_sauv,pre_sauv,date_naissance,date_mort,métier,res)
+                siteModel.InsererSauveteur(nom_sauv,pre_sauv,date_naissance,date_mort,métier,res)
                 res.redirect('/listeSauveteur')
         }
 }
