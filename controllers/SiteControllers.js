@@ -19,7 +19,7 @@ module.exports = {
                         res.render("./listeSauveteur", {index : lignes});
                 });
         }, AfficherAjoutSauveteur: (req,res)=>{
-                res.render('/AjouterSauveteur')
+                res.render('./AjouterSauveteur')
         },
         
         //Ajouter sauveuteur dans la table
