@@ -14,9 +14,20 @@
         <input type="date" name="date_mort" id="date_mort" placeholder="Date de mort (si décédé)">
         <input type="text" name="métier" id="métier" placeholder="Métier">
 
+       
+            <input  type="text" name="décoration" id="décoration" placeholder="décoration"
+                required autocomplete="off" />
+        <div id="addInput" ></div>
+
 
 
     </form>
 
 </body>
 </html>
+<script type="text/javascript">
+    function add() {
+        var input = addInput.innerHTML
+        addInput.innerHTML = input + '<br/><input placeholder="décoration" list="décoration" type="text" autocomplete="off" name="décoration" id="décoration" required />\n';
+    }
+</script>
