@@ -13,8 +13,8 @@ module.exports={
             return callback(data);
         });
         
-    },InsererClient : (nom_sauv,pre_sauv,date_naissance,date_mort,métier,res) =>{
-        let requeteSQL = "INSERT INTO client (cli_nom, cli_prenom, cli_date,cli_mutuelle,cli_telephone,cli_secu,cli_sexe) VALUES "
+    },InsererSauveteur : (nom_sauv,pre_sauv,date_naissance,date_mort,métier,res) =>{
+        let requeteSQL = "INSERT INTO sauveteur (nomSauv, prenomSauv, naissanceSauv, mortSAUV,metierSauv) VALUES "
         requeteSQL = requeteSQL + ' ("' + nom_sauv + '","' + pre_sauv + '","' + date_naissance + '","' + date_mort + '","' + métier +'")'
         db.query(requeteSQL, (err, lignes) => {
             if (!err) {
