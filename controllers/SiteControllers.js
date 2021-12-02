@@ -18,5 +18,19 @@ module.exports = {
                 siteModel.Sauveteur_affichage(function(lignes){
                         res.render("./listeSauveteur", {index : lignes});
                 });
+        }, AfficherAjoutSauveteur: (req,res)=>{
+                res.render('/AjouterSauveteur')
         },
+        
+        //Ajouter sauveuteur dans la table
+        ajouterSauveteur:(req,res)=>{
+
+                let nom_sauv = req.body.nom
+                let pre_sauv = req.body.prenom
+                let date_naissance = req.body.date_naissance
+                let date_mort = req.body.date_mort
+                let métier = req.body.métier
+                siteModel.InsererClient(nom_sauv,pre_sauv,date_naissance,date_mort,métier,res)
+                res.redirect('/listeSauveteur')
+        }
 }
