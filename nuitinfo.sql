@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 03 déc. 2021 à 00:50
+-- Généré le : ven. 03 déc. 2021 à 01:35
 -- Version du serveur : 10.4.21-MariaDB
 -- Version de PHP : 8.0.10
 
@@ -44,6 +44,44 @@ INSERT INTO `alldeco` (`idAllDeco`, `idDecoStrange`, `idSauvStrange`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `allnavire`
+--
+
+CREATE TABLE `allnavire` (
+  `idAllNavire` int(11) NOT NULL,
+  `idEquipeStrange` int(11) NOT NULL,
+  `idNavireStrange` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `allnavire`
+--
+
+INSERT INTO `allnavire` (`idAllNavire`, `idEquipeStrange`, `idNavireStrange`) VALUES
+(1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `allrecit`
+--
+
+CREATE TABLE `allrecit` (
+  `idAllRecit` int(11) NOT NULL,
+  `idRecitStrange` int(11) NOT NULL,
+  `idSauvetageStrange` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `allrecit`
+--
+
+INSERT INTO `allrecit` (`idAllRecit`, `idRecitStrange`, `idSauvetageStrange`) VALUES
+(1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `allsauv`
 --
 
@@ -68,8 +106,17 @@ INSERT INTO `allsauv` (`idAllSauv`, `idStrangeSauv`, `idStrangeEquipe`) VALUES
 --
 
 CREATE TABLE `allvictime` (
-  `idAllVic` int(11) NOT NULL
+  `idAllVic` int(11) NOT NULL,
+  `idStrangeVic` int(11) NOT NULL,
+  `idStrangeSauvt` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `allvictime`
+--
+
+INSERT INTO `allvictime` (`idAllVic`, `idStrangeVic`, `idStrangeSauvt`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -113,15 +160,62 @@ INSERT INTO `equipe` (`idEquipe`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `navire`
+--
+
+CREATE TABLE `navire` (
+  `idNavire` int(11) NOT NULL,
+  `nomNavire` varchar(50) NOT NULL,
+  `lienNavire` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `navire`
+--
+
+INSERT INTO `navire` (`idNavire`, `nomNavire`, `lienNavire`) VALUES
+(1, 'Le Helena', 'https://fr.wikipedia.org/wiki/Helena_(voilier)');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `recit`
+--
+
+CREATE TABLE `recit` (
+  `idRecit` int(11) NOT NULL,
+  `nomRecit` varchar(30) NOT NULL,
+  `dateRecit` date NOT NULL,
+  `auteurRecit` varchar(30) NOT NULL,
+  `recit` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `recit`
+--
+
+INSERT INTO `recit` (`idRecit`, `nomRecit`, `dateRecit`, `auteurRecit`, `recit`) VALUES
+(1, 'Comment les SIO nous on sauvé', '1813-07-15', 'Mat Menace', 'Lors du sauvetage des sio j\'ai tenter de sauver de sauver kevin... En vain...');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `sauvetage`
 --
 
 CREATE TABLE `sauvetage` (
   `idSauvt` int(11) NOT NULL,
   `nomSauvt` varchar(30) NOT NULL,
-  `lieu` varchar(30) NOT NULL,
-  `date` date NOT NULL
+  `lieuSauvt` varchar(30) NOT NULL,
+  `dateSauvt` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `sauvetage`
+--
+
+INSERT INTO `sauvetage` (`idSauvt`, `nomSauvt`, `lieuSauvt`, `dateSauvt`) VALUES
+(1, 'Le SIOvetage', 'Dunkerque', '1813-06-15');
 
 -- --------------------------------------------------------
 
@@ -155,11 +249,18 @@ INSERT INTO `sauveteur` (`idSauv`, `nomSauv`, `prenomSauv`, `naissanceSauv`, `mo
 
 CREATE TABLE `victime` (
   `idVic` int(11) NOT NULL,
-  `nomVic` int(11) NOT NULL,
-  `prenomVic` int(11) NOT NULL,
+  `nomVic` varchar(30) NOT NULL,
+  `prenomVic` varchar(30) NOT NULL,
   `etatVic` tinyint(1) NOT NULL,
   `dateVic` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `victime`
+--
+
+INSERT INTO `victime` (`idVic`, `nomVic`, `prenomVic`, `etatVic`, `dateVic`) VALUES
+(1, 'Kevin', 'Troll', 0, '2002-04-01');
 
 --
 -- Index pour les tables déchargées
@@ -175,6 +276,22 @@ ALTER TABLE `alldeco`
   ADD KEY `idSauvStrange` (`idSauvStrange`);
 
 --
+-- Index pour la table `allnavire`
+--
+ALTER TABLE `allnavire`
+  ADD PRIMARY KEY (`idAllNavire`),
+  ADD KEY `idEquipeStrange` (`idEquipeStrange`,`idNavireStrange`),
+  ADD KEY `idNavireStrange` (`idNavireStrange`);
+
+--
+-- Index pour la table `allrecit`
+--
+ALTER TABLE `allrecit`
+  ADD PRIMARY KEY (`idAllRecit`),
+  ADD KEY `idRecitStrange` (`idRecitStrange`,`idSauvetageStrange`),
+  ADD KEY `idSauvetageStrange` (`idSauvetageStrange`);
+
+--
 -- Index pour la table `allsauv`
 --
 ALTER TABLE `allsauv`
@@ -186,7 +303,9 @@ ALTER TABLE `allsauv`
 -- Index pour la table `allvictime`
 --
 ALTER TABLE `allvictime`
-  ADD PRIMARY KEY (`idAllVic`);
+  ADD PRIMARY KEY (`idAllVic`),
+  ADD KEY `idStrangeVic` (`idStrangeVic`,`idStrangeSauvt`),
+  ADD KEY `idStrangeSauvt` (`idStrangeSauvt`);
 
 --
 -- Index pour la table `decoration`
@@ -199,6 +318,18 @@ ALTER TABLE `decoration`
 --
 ALTER TABLE `equipe`
   ADD PRIMARY KEY (`idEquipe`);
+
+--
+-- Index pour la table `navire`
+--
+ALTER TABLE `navire`
+  ADD PRIMARY KEY (`idNavire`);
+
+--
+-- Index pour la table `recit`
+--
+ALTER TABLE `recit`
+  ADD PRIMARY KEY (`idRecit`);
 
 --
 -- Index pour la table `sauvetage`
@@ -229,6 +360,18 @@ ALTER TABLE `alldeco`
   MODIFY `idAllDeco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT pour la table `allnavire`
+--
+ALTER TABLE `allnavire`
+  MODIFY `idAllNavire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `allrecit`
+--
+ALTER TABLE `allrecit`
+  MODIFY `idAllRecit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT pour la table `allsauv`
 --
 ALTER TABLE `allsauv`
@@ -238,7 +381,7 @@ ALTER TABLE `allsauv`
 -- AUTO_INCREMENT pour la table `allvictime`
 --
 ALTER TABLE `allvictime`
-  MODIFY `idAllVic` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAllVic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `decoration`
@@ -253,10 +396,22 @@ ALTER TABLE `equipe`
   MODIFY `idEquipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT pour la table `navire`
+--
+ALTER TABLE `navire`
+  MODIFY `idNavire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `recit`
+--
+ALTER TABLE `recit`
+  MODIFY `idRecit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT pour la table `sauvetage`
 --
 ALTER TABLE `sauvetage`
-  MODIFY `idSauvt` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idSauvt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `sauveteur`
@@ -268,7 +423,7 @@ ALTER TABLE `sauveteur`
 -- AUTO_INCREMENT pour la table `victime`
 --
 ALTER TABLE `victime`
-  MODIFY `idVic` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idVic` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Contraintes pour les tables déchargées
@@ -282,11 +437,32 @@ ALTER TABLE `alldeco`
   ADD CONSTRAINT `alldeco_ibfk_2` FOREIGN KEY (`idSauvStrange`) REFERENCES `sauveteur` (`idSauv`);
 
 --
+-- Contraintes pour la table `allnavire`
+--
+ALTER TABLE `allnavire`
+  ADD CONSTRAINT `allnavire_ibfk_1` FOREIGN KEY (`idEquipeStrange`) REFERENCES `equipe` (`idEquipe`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `allnavire_ibfk_2` FOREIGN KEY (`idNavireStrange`) REFERENCES `navire` (`idNavire`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `allrecit`
+--
+ALTER TABLE `allrecit`
+  ADD CONSTRAINT `allrecit_ibfk_1` FOREIGN KEY (`idRecitStrange`) REFERENCES `recit` (`idRecit`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `allrecit_ibfk_2` FOREIGN KEY (`idSauvetageStrange`) REFERENCES `sauvetage` (`idSauvt`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `allsauv`
 --
 ALTER TABLE `allsauv`
   ADD CONSTRAINT `allsauv_ibfk_1` FOREIGN KEY (`idStrangeEquipe`) REFERENCES `equipe` (`idEquipe`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `allsauv_ibfk_2` FOREIGN KEY (`idStrangeSauv`) REFERENCES `sauveteur` (`idSauv`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `allvictime`
+--
+ALTER TABLE `allvictime`
+  ADD CONSTRAINT `allvictime_ibfk_1` FOREIGN KEY (`idStrangeSauvt`) REFERENCES `sauvetage` (`idSauvt`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `allvictime_ibfk_2` FOREIGN KEY (`idStrangeVic`) REFERENCES `victime` (`idVic`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
