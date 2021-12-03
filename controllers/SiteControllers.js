@@ -30,7 +30,8 @@ module.exports = {
                 let date_naissance = req.body.date_naissance
                 let date_mort = req.body.date_mort
                 let métier = req.body.métier
-                siteModel.InsererSauveteur(nom_sauv,pre_sauv,date_naissance,date_mort,métier,res)
+                let décoration = req.body.décoration
+                siteModel.InsererSauveteur(nom_sauv,pre_sauv,date_naissance,date_mort,métier,décoration,res)
                 res.redirect('/listeSauveteur')
         }
 }
