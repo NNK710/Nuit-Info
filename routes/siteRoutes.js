@@ -12,6 +12,7 @@ routeur.get('/listeSauveteur', Controle.Sauveteur_affichage);
 routeur.get('/EnregistrerSauveteur', Controle.AfficherAjoutSauveteur);
 
 routeur.post('/ajouterSauveteur', Controle.ajouterSauveteur);
+routeur.get('/AfficherProfile/:id', Controle.ProfileSauveteur);
 
 routeur.get('/listeDecoration', Controle.Decoration_affichage);
 

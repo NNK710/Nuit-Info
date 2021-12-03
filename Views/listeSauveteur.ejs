@@ -7,6 +7,15 @@
     <title>Acceuil</title>
 </head>
 <body>
+
+    <% index.forEach(function(user){ %>
+        <tr>
+            <td>
+               <a href="/AfficherProfile/<%= user.idSauv %>"> <strong><%= user.prenomSauv %> <%= user.nomSauv %></strong></a>
+            </td>
+        </tr>
+    <% }) %>
+
     <div id="header">
         <a id="titreMenu" href="/"><h1 id="titre">Sauveteurs du Dunkerquois</h1></a>
         <a class="btnMenu" href="/listeSauveteur">Les Sauveteurs</a>
@@ -25,5 +34,6 @@
             </tr>
         <% }) %>
     </div>
+
 </body>
 </html>
