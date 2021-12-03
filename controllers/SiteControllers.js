@@ -41,6 +41,7 @@ module.exports = {
             });
         },
         
+        //Afficher page d'ajout de sauveteur
         AfficherAjoutSauveteur: (req,res)=>{
                 res.render('./AjouterSauveteur')
         },
@@ -54,7 +55,27 @@ module.exports = {
                 let date_mort = req.body.date_mort
                 let métier = req.body.métier
                 let décoration = req.body.décoration
+
                 siteModel.InsererSauveteur(nom_sauv,pre_sauv,date_naissance,date_mort,métier,décoration,res)
                 res.redirect('/listeSauveteur')
+        },
+        //Affichage profile sauveteur
+        ProfileSauveteur:(req,res)=>{
+                id = req.params.id
+                
+                siteModel.getSauveteur(function(data){
+                        siteModel.getDecoration(function(data2){
+                                console.log(data)
+                                
+                                console.log(data2)
+                                truc = data2
+                                res.render('profile.ejs',{data: data, decoration: truc})
+                                
+                        })
+                })
+               
+              
+
+                
         }
 }
