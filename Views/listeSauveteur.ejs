@@ -1,18 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/cssFiles/style.css">
+    <title>Acceuil</title>
 </head>
 <body>
-    <% index.forEach(function(user){ %>
-        <tr>
-            <td>
-                <strong><%= user.prenomSauv %> <%= user.nomSauv %></strong><br>
-            </td>
-        </tr>
-    <% }) %>
+    <div id="header">
+        <a id="titreMenu" href="/"><h1 id="titre">Sauveteurs du Dunkerquois</h1></a>
+        <a class="btnMenu" href="/listeSauveteur">Les Sauveteurs</a>
+        <a class="btnMenu" href="/listeSauvetages">Les Sauvetages</a>
+        <a class="btnMenu" href="/listeNavire">Les Navires</a>
+        <a class="btnMenu" href="/listeDecoration">Les Décorations</a>
+        <a class="btnMenu" href="/listeRecit">Les Récits</a>
+    </div>
+    <div id="headerTransition"></div>
+    <div id="contenu">
+        <% index.forEach(function(user){ %>
+            <tr>
+                <td>
+                    <strong><%= user.prenomSauv %> <%= user.nomSauv %></strong><br>
+                </td>
+            </tr>
+        <% }) %>
+    </div>
 </body>
 </html>
