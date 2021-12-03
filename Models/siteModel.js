@@ -13,12 +13,41 @@ module.exports={
             return callback(data);
         });
         
-    },InsererSauveteur : (nom_sauv,pre_sauv,date_naissance,date_mort,métier,res) =>{
+    },InsererSauveteur : (nom_sauv,pre_sauv,date_naissance,date_mort,métier,décoration,res) =>{
         let requeteSQL = "INSERT INTO sauveteur (nomSauv, prenomSauv, naissanceSauv, mortSAUV,metierSauv) VALUES "
         requeteSQL = requeteSQL + ' ("' + nom_sauv + '","' + pre_sauv + '","' + date_naissance + '","' + date_mort + '","' + métier +'")'
         db.query(requeteSQL, (err, lignes) => {
             if (!err) {
-                 
+
+               
+            for (let i=0;i<décoration.length;i++){
+            
+                LaDécoration = décoration[i]
+                console.log(LaDécoration)
+
+                db.query('SELECT idSauv FROM sauveteur WHERE nomSauv = "' + nom_sauv + '"AND prenomSauv = "'+pre_sauv +'" AND naissanceSauv ='+date_naissance, (err, lignes) => {
+                    console.log('SELECT idSauv FROM sauveteur WHERE nomSauv = "' + nom_sauv + '"AND prenomSauv = "'+pre_sauv +'" AND naissanceSauv ='+date_naissance)
+                    lignes.forEach(function (user) {
+                        id_sauv = user.idSauv
+                       
+                        console.log('test')
+                        db.query('INSERT INTO decoration(nomDeco) VALUES ("'+LaDécoration+'")', (err, lignes) => {
+                            
+                            db.query('SELECT idDecoration FROM decoration WHERE nomDeco = "' + LaDécoration + '"', (err, lignes) => {
+                                lignes.forEach(function (user) {
+                                    
+                                    id_deco = user.nomDeco
+                                    db.query('INSERT INTO alldeco(idDecoStrange,idSauvStrang) VALUES ('+id_deco+','+id_sauv+')', (err, lignes) => {
+                                })
+                            })
+                        })
+
+                    })
+                })
+                
+            })
+
+            }
                 
             } else {
                  
