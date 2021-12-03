@@ -17,4 +17,6 @@ routeur.get('/listeDecoration', Controle.Decoration_affichage);
 
 routeur.get('/listeNavire', Controle.Navire_affichage);
 
+routeur.get('/listeRecit', Controle.Recit_affichage);
+
 module.exports = routeur;

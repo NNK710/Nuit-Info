@@ -77,5 +77,16 @@ module.exports={
             return callback(data);
         });
         
-    },    
+    },
+    
+    Recit_affichage:function(callback){
+    
+        var sql="SELECT DATE_FORMAT(dateRecit,'%d/%m/%Y') AS dateRecit, nomRecit, auteurRecit, recit FROM recit";
+        db.query(sql, function (err, data, fields){
+            console.log(err)
+            if (err) throw err;
+            return callback(data);
+        });
+        
+    },
 }

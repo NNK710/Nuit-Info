@@ -20,10 +20,17 @@ module.exports = {
                 });
         },
 
-        //Affichage les navire
+        //Affichage les navires
         Navire_affichage: (req, res) => {
             siteModel.Navire_affichage(function(lignes){
                     res.render("./listeNavire", {index : lignes});
+            });
+        },
+
+        //Affichage les récits
+        Recit_affichage: (req, res) => {
+            siteModel.Recit_affichage(function(lignes){
+                    res.render("./listeRecit", {index : lignes});
             });
         },
 
