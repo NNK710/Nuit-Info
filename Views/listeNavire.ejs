@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Navire</title>
 </head>
 <body>
     <% index.forEach(function(user){ %>
         <tr>
             <td>
-                <strong><%= user.prenomSauv %> <%= user.nomSauv %></strong><br>
+                <strong><%= user.nomNavire %> <a href="<%= user.lienNavire %>">Liens Wiki</a></strong><br>
             </td>
         </tr>
     <% }) %>

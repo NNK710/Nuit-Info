@@ -13,7 +13,8 @@ module.exports={
             return callback(data);
         });
         
-    },InsererSauveteur : (nom_sauv,pre_sauv,date_naissance,date_mort,métier,décoration,res) =>{
+    },
+    InsererSauveteur : (nom_sauv,pre_sauv,date_naissance,date_mort,métier,décoration,res) =>{
         let requeteSQL = "INSERT INTO sauveteur (nomSauv, prenomSauv, naissanceSauv, mortSAUV,metierSauv) VALUES "
         requeteSQL = requeteSQL + ' ("' + nom_sauv + '","' + pre_sauv + '","' + date_naissance + '","' + date_mort + '","' + métier +'")'
         db.query(requeteSQL, (err, lignes) => {
@@ -54,5 +55,27 @@ module.exports={
                 res.send("Erreur ajout : " + JSON.stringify(err))
             }
         })
-      }
+    },
+
+    Decoration_affichage:function(callback){
+    
+        var sql='SELECT nomDeco FROM decoration';
+        db.query(sql, function (err, data, fields){
+            console.log(err)
+            if (err) throw err;
+            return callback(data);
+        });
+        
+    },
+
+    Navire_affichage:function(callback){
+    
+        var sql='SELECT nomNavire, lienNavire FROM navire';
+        db.query(sql, function (err, data, fields){
+            console.log(err)
+            if (err) throw err;
+            return callback(data);
+        });
+        
+    },    
 }

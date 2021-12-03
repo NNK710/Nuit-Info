@@ -13,16 +13,32 @@ module.exports = {
                 res.render("./acceuil");
         },
 
-        //Affichage des sauveteur
+        //Affichage les sauveteurs
         Sauveteur_affichage: (req, res) => {
                 siteModel.Sauveteur_affichage(function(lignes){
                         res.render("./listeSauveteur", {index : lignes});
                 });
-        }, AfficherAjoutSauveteur: (req,res)=>{
+        },
+
+        //Affichage les navire
+        Navire_affichage: (req, res) => {
+            siteModel.Navire_affichage(function(lignes){
+                    res.render("./listeNavire", {index : lignes});
+            });
+        },
+
+        //Affichage les Decorations
+        Decoration_affichage: (req, res) => {
+            siteModel.Decoration_affichage(function(lignes){
+                    res.render("./listeDecoration", {index : lignes});
+            });
+        },
+        
+        AfficherAjoutSauveteur: (req,res)=>{
                 res.render('./AjouterSauveteur')
         },
         
-        //Ajouter sauveuteur dans la table
+        //Ajouter un sauveteur dans la table
         ajouterSauveteur:(req,res)=>{
 
                 let nom_sauv = req.body.nom
